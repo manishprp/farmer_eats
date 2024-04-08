@@ -31,3 +31,6 @@ const TextStyle kTS14SpUnderLineBlack = TextStyle(
 
 const TextStyle kTS18White = TextStyle(
     fontSize: 18, fontWeight: FontWeight.w500, color: AppColors.white);
+
+const TextStyle kTS16FW400Black = TextStyle(
+    fontSize: 16, fontWeight: FontWeight.w400, color: AppColors.blackFont);

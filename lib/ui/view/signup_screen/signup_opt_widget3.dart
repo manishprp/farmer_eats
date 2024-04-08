@@ -8,8 +8,8 @@ import '../../../constants/app_textstyles.dart';
 import '../common/app_button_widget.dart';
 import '../common/app_text_field.dart';
 
-class SignUpScreenStep2Widget extends StatelessWidget {
-  const SignUpScreenStep2Widget({super.key});
+class SignUpScreenStep3Widget extends StatelessWidget {
+  const SignUpScreenStep3Widget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,55 +31,40 @@ class SignUpScreenStep2Widget extends StatelessWidget {
                   ),
                   AppSizeConstants.heightConstants[40],
                   Text(
-                    Appstrings.signup2Of4,
+                    Appstrings.signup3Of4,
                     style: kTS14SpLightBlack.copyWith(
                         color: AppColors.black.withOpacity(0.3)),
                   ),
                   AppSizeConstants.heightConstants[10],
                   const Text(
-                    Appstrings.farmInfo,
+                    Appstrings.verification,
                     style: kTS32SpBlackFont,
                   ),
-                  AppSizeConstants.heightConstants[29],
-                  AppTextFieldWidget(
-                    label: Appstrings.businessName,
-                    prefixIcon: AppIcons.tagIcon,
+                  AppSizeConstants.heightConstants[24],
+                  Text(
+                    Appstrings
+                        .attachedProofOfDepartmentOfAgricultureRegistrations,
+                    style: kTS14SpUnderLineBlack.copyWith(
+                        color: AppColors.black.withOpacity(0.3),
+                        decoration: TextDecoration.none),
                   ),
-                  AppSizeConstants.heightConstants[20],
-                  AppTextFieldWidget(
-                    label: Appstrings.informalName,
-                    prefixIcon: AppIcons.smilyIcon,
-                  ),
-                  AppSizeConstants.heightConstants[20],
-                  AppTextFieldWidget(
-                    label: Appstrings.streetAddress,
-                    prefixIcon: AppIcons.homeIcon,
-                  ),
-                  AppSizeConstants.heightConstants[20],
-                  AppTextFieldWidget(
-                    label: Appstrings.city,
-                    prefixIcon: AppIcons.locationIcon,
-                  ),
-                  AppSizeConstants.heightConstants[20],
-                  // state and zip
+                  AppSizeConstants.heightConstants[49],
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Flexible(
-                        flex: 2,
-                        child: AppTextFieldWidget(
-                          label: Appstrings.state,
-                          suffixIon: AppIcons.dropDownIcon,
-                          prefixIcon: null,
-                        ),
+                      Text(
+                        Appstrings.attackProofOfRegistration,
+                        style: kTS14SpUnderLineBlack.copyWith(
+                            color: AppColors.blackFont,
+                            decoration: TextDecoration.none),
                       ),
-                      AppSizeConstants.widthConstants[17],
-                      Flexible(
-                        flex: 3,
-                        child: AppTextFieldWidget(
-                          label: Appstrings.enterZipcode,
-                          prefixIcon: null,
-                        ),
-                      ),
+                      AppButton(
+                        onTap: () {},
+                        borderRadius: 26.5,
+                        width: 53,
+                        height: 53,
+                        child: Center(child: Image.asset(AppIcons.camIcon)),
+                      )
                     ],
                   ),
                   AppSizeConstants.heightConstants[49],

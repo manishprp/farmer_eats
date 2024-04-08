@@ -13,4 +13,6 @@ class AppIcons {
   static const String locationIcon = 'lib/assets/location_icon.png';
   static const String backArrowIcon = 'lib/assets/back_icon.png';
   static const String dropDownIcon = 'lib/assets/dropdown_icon.png';
+  static const String camIcon = "lib/assets/cam_icon.png";
+  static const String doneIcon = "lib/assets/done_icon.png";
 }
