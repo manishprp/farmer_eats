@@ -15,4 +15,8 @@ class AppIcons {
   static const String dropDownIcon = 'lib/assets/dropdown_icon.png';
   static const String camIcon = "lib/assets/cam_icon.png";
   static const String doneIcon = "lib/assets/done_icon.png";
+
+  static const String convnientImage = "lib/assets/convenient_img.png";
+  static const String localImage = "lib/assets/local_img.png";
+  static const String qualityImage = "lib/assets/quality_img.png";
 }

@@ -53,4 +53,15 @@ class Appstrings {
   static const String newPassword = "New Password";
   static const String confirmNewPassword = "Confirm New Password";
   static const String submit = "Submit";
+
+  static const String quality = "Quality";
+  static const String sellYourFarmFreshProducts =
+      "Sell your farm fresh products directly to consumers, cutting out the middleman and reducing emissions of the global supply chain. ";
+  static const String joinTheMovement = "Join the movement!";
+  static const String convenient = "Convenient";
+  static const String local = "Local";
+  static const String outTeamOfDeliveryDriversWillMake =
+      "Our team of delivery drivers will make sure your orders are picked up on time and promptly delivered to your customers.";
+  static const String weLoveTheEarthAndKnow =
+      "We love the earth and know you do too! Join us in reducing our local carbon footprint one order at a time. ";
 }

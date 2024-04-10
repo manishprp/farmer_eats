@@ -71,6 +71,9 @@ flutter:
     - lib/assets/tag_icon.png
     - lib/assets/cam_icon.png
     - lib/assets/done_icon.png
+    - lib/assets/convenient_img.png
+    - lib/assets/local_img.png
+    - lib/assets/quality_img.png
 
   # To add assets to your application, add an assets section, like this:
 
