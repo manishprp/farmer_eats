@@ -64,4 +64,12 @@ class Appstrings {
       "Our team of delivery drivers will make sure your orders are picked up on time and promptly delivered to your customers.";
   static const String weLoveTheEarthAndKnow =
       "We love the earth and know you do too! Join us in reducing our local carbon footprint one order at a time. ";
+
+  /// Api Constants
+  static const String baseUrl = "https://sowlab.com/assignment/";
+  static const String userRegister = "user/register";
+  static const String userLogin = "user/login";
+  static const String userForgotPassword = "user/forgot-password";
+  static const String userVerifyOtp = "user/verify-otp";
+  static const String userResetPassword = "user/reset-password";
 }

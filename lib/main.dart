@@ -1,20 +1,30 @@
-import 'package:farmer_eats/ui/view/onboarding/local_screen.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import 'ui/view/onboarding/convenient_screen.dart';
+import 'model/repositories/forgotpassrepo/i_forgot_password_repo.dart';
+import 'model/repositories/signinuserrepo/i_sign_in_user_repo.dart';
+import 'model/repositories/signinuserrepo/sign_in_user_repo.dart';
+import 'model/repositories/signupuserrepo/i_signup_user_repo.dart';
+import 'model/repositories/signupuserrepo/signup_user_repo.dart';
+import 'services/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+
+import 'model/repositories/forgotpassrepo/forgot_password_repo.dart';
 import 'ui/view/onboarding/page_view_screen.dart';
-import 'ui/view/onboarding/quality_screen.dart';
-import 'ui/view/sign_in_screen/forgot_password_1.dart';
-import 'ui/view/sign_in_screen/otp_enter_screen.dart';
-import 'ui/view/sign_in_screen/reset_pass_screen.dart';
-import 'ui/view/sign_in_screen/sign_in_main.dart';
-import 'ui/view/signup_screen/signup_done_widget.dart';
-import 'ui/view/signup_screen/signup_opt_widget3.dart';
-import 'ui/view/signup_screen/signup_opt_widget4.dart';
-import 'ui/view/signup_screen/signup_screen_step2.dart';
 
 void main() {
+  setupLocator();
   runApp(const FarmerEats());
+}
+
+void setupLocator() {
+  GetIt.I.registerSingleton<Client>(Client());
+  GetIt.I.registerSingleton<FlutterSecureStorage>(const FlutterSecureStorage());
+  //final myService = GetIt.I<MyService>();
+  GetIt.I.registerFactory<IForgotPasswordRepository>(
+      () => ForgotPasswordRepository());
+  GetIt.I.registerFactory<ISignInUserRepository>(() => SignInUserRepository());
+  GetIt.I.registerFactory<ISignupUserRepository>(() => SignupUserRepository());
 }
 
 class FarmerEats extends StatelessWidget {
@@ -27,8 +37,6 @@ class FarmerEats extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: Colors.blue,
-          //textTheme:
-          //    GoogleFonts.beVietnamProTextTheme(Theme.of(context).textTheme),
         ),
         home: const PageViewScreen(),
       ),

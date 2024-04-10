@@ -44,11 +44,11 @@ class _PageViewScreenState extends State<PageViewScreen>
             LocalScreen()
           ],
         ),
-        PageIndicator(
-          tabController: _tabController,
-          currentPageIndex: _currentPageIndex,
-          onUpdateCurrentPageIndex: _updateCurrentPageIndex,
-        ),
+        // PageIndicator(
+        //   tabController: _tabController,
+        //   currentPageIndex: _currentPageIndex,
+        //   onUpdateCurrentPageIndex: _updateCurrentPageIndex,
+        // ),
       ],
     );
   }
