@@ -7,7 +7,7 @@ import '../../../constants/app_spaces.dart';
 import '../../../constants/app_textstyles.dart';
 import '../common/app_button_widget.dart';
 import '../common/app_text_field.dart';
-import 'signup_options_widget.dart';
+import '../common/signup_options_widget.dart';
 
 class SignUpScreenWidget extends StatelessWidget {
   const SignUpScreenWidget({super.key});

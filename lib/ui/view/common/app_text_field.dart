@@ -12,7 +12,7 @@ class AppTextFieldWidget extends StatelessWidget {
   final String? label;
   final TextEditingController? controller;
   final String? prefixIcon;
-  final String? suffixIon;
+  final Widget? suffixIon;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class AppTextFieldWidget extends StatelessWidget {
           hintStyle: TextStyle(color: AppColors.black.withOpacity(0.3)),
           border: InputBorder.none,
           prefixIcon: prefixIcon != null ? Image.asset(prefixIcon!) : null,
-          suffixIcon: suffixIon != null ? Image.asset(suffixIon!) : null,
+          suffixIcon: suffixIon,
           hintText: label,
         ),
       ),

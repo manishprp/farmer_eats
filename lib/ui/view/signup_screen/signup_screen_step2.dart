@@ -64,11 +64,11 @@ class SignUpScreenStep2Widget extends StatelessWidget {
                   // state and zip code
                   Row(
                     children: [
-                      const Flexible(
+                      Flexible(
                         flex: 2,
                         child: AppTextFieldWidget(
                           label: Appstrings.state,
-                          suffixIon: AppIcons.dropDownIcon,
+                          suffixIon: Image.asset(AppIcons.dropDownIcon),
                           prefixIcon: null,
                         ),
                       ),

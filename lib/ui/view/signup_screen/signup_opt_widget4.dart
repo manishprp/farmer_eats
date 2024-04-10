@@ -192,7 +192,7 @@ class SignUpScreenStep4Widget extends StatelessWidget {
 }
 
 class DayWidget extends StatefulWidget {
-  DayWidget(
+  const DayWidget(
       {super.key,
       required this.width,
       required this.child,
@@ -202,7 +202,7 @@ class DayWidget extends StatefulWidget {
   final double width;
   final Widget child;
   final Color selectedColor;
-  bool isSelected = false;
+
   final Function(bool isSelected) onSelectionChanged;
 
   @override
@@ -210,20 +210,21 @@ class DayWidget extends StatefulWidget {
 }
 
 class _DayWidgetState extends State<DayWidget> {
+  bool isSelected = false;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         setState(() {
-          widget.isSelected = !widget.isSelected;
+          isSelected = !isSelected;
         });
-        widget.onSelectionChanged(widget.isSelected);
+        widget.onSelectionChanged(isSelected);
       },
       child: Container(
           width: widget.width,
           height: 48,
           decoration: BoxDecoration(
-              color: widget.isSelected
+              color: isSelected
                   ? widget.selectedColor
                   : AppColors.blackFont.withOpacity(0.08),
               borderRadius: const BorderRadius.all(Radius.circular(10))),

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import '../../../constants/app_spaces.dart';
 import '../../../constants/app_textstyles.dart';
 import '../common/app_button_widget.dart';
-import '../common/app_text_field.dart';
 
 class SignUpScreenStep3Widget extends StatelessWidget {
   const SignUpScreenStep3Widget({super.key});

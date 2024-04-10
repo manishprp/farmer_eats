@@ -37,4 +37,20 @@ class Appstrings {
       "Choose the hours your farm is open for pickups. This will allow customers to order deliveries.";
   static const String businessHours = "Business Hours";
   static const String signup4Of4 = "Signup 4 of 4";
+
+  static const String welcomeBack = "Welcome back!";
+  static const String newHere = "New here?";
+  static const String createAccount = "Create account";
+  static const String forgot = "Forgot?";
+  static const String orloginWith = "or login with";
+  static const String forgotPassword = "Forgot Password?";
+
+  static const String rememberYourPasword = "Remember your pasword?";
+  static const String sendCode = "Send Code";
+  static const String verifyOTP = "Verify OTP";
+  static const String resendCode = "Resend Code";
+  static const String resetPassword = "Reset Password";
+  static const String newPassword = "New Password";
+  static const String confirmNewPassword = "Confirm New Password";
+  static const String submit = "Submit";
 }
