@@ -34,3 +34,14 @@ const TextStyle kTS18White = TextStyle(
 
 const TextStyle kTS16FW400Black = TextStyle(
     fontSize: 16, fontWeight: FontWeight.w400, color: AppColors.blackFont);
+
+// onboarding stules
+
+const TextStyle kTS24FW700black = TextStyle(
+    fontSize: 24, fontWeight: FontWeight.w700, color: AppColors.black);
+
+const TextStyle kTS14FW400BlackFont = TextStyle(
+    decoration: TextDecoration.underline,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: AppColors.blackFont);
