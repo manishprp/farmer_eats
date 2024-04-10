@@ -5,4 +5,5 @@ class AppColors {
   static const Color blackFont = Color(0xFF261C12);
   static const Color buttonColor = Color(0xFFD5715B);
   static const Color white = Color(0xFFFFFFFF);
+  static const Color yellorangish = Color(0xFFF8C569);
 }
