@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../constants/colors.dart';
 
 class AppButton extends StatelessWidget {
-  AppButton(
+  const AppButton(
       {super.key,
       this.onTap,
       this.child,
@@ -11,12 +11,12 @@ class AppButton extends StatelessWidget {
       this.height,
       this.width,
       this.borderRadius});
-  Function()? onTap;
-  Widget? child;
-  Color? color;
-  double? height;
-  double? width;
-  double? borderRadius;
+  final Function()? onTap;
+  final Widget? child;
+  final Color? color;
+  final double? height;
+  final double? width;
+  final double? borderRadius;
 
   @override
   Widget build(BuildContext context) {

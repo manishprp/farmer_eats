@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import '../../../constants/colors.dart';
 
 class AppTextFieldWidget extends StatelessWidget {
-  AppTextFieldWidget(
+  const AppTextFieldWidget(
       {super.key,
       this.label,
       this.controller,
       required this.prefixIcon,
       this.suffixIon});
-  String? label;
-  TextEditingController? controller;
-  String? prefixIcon;
-  String? suffixIon;
+  final String? label;
+  final TextEditingController? controller;
+  final String? prefixIcon;
+  final String? suffixIon;
 
   @override
   Widget build(BuildContext context) {

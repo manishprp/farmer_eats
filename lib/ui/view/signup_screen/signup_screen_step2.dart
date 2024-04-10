@@ -7,7 +7,6 @@ import '../../../constants/app_spaces.dart';
 import '../../../constants/app_textstyles.dart';
 import '../common/app_button_widget.dart';
 import '../common/app_text_field.dart';
-import 'signup_options_widget.dart';
 
 class SignUpScreenStep2Widget extends StatelessWidget {
   const SignUpScreenStep2Widget({super.key});
@@ -42,30 +41,30 @@ class SignUpScreenStep2Widget extends StatelessWidget {
                     style: kTS32SpBlackFont,
                   ),
                   AppSizeConstants.heightConstants[29],
-                  AppTextFieldWidget(
+                  const AppTextFieldWidget(
                     label: Appstrings.businessName,
                     prefixIcon: AppIcons.tagIcon,
                   ),
                   AppSizeConstants.heightConstants[20],
-                  AppTextFieldWidget(
+                  const AppTextFieldWidget(
                     label: Appstrings.informalName,
                     prefixIcon: AppIcons.smilyIcon,
                   ),
                   AppSizeConstants.heightConstants[20],
-                  AppTextFieldWidget(
+                  const AppTextFieldWidget(
                     label: Appstrings.streetAddress,
                     prefixIcon: AppIcons.homeIcon,
                   ),
                   AppSizeConstants.heightConstants[20],
-                  AppTextFieldWidget(
+                  const AppTextFieldWidget(
                     label: Appstrings.city,
                     prefixIcon: AppIcons.locationIcon,
                   ),
                   AppSizeConstants.heightConstants[20],
-                  // state and zip
+                  // state and zip code
                   Row(
                     children: [
-                      Flexible(
+                      const Flexible(
                         flex: 2,
                         child: AppTextFieldWidget(
                           label: Appstrings.state,
@@ -74,7 +73,7 @@ class SignUpScreenStep2Widget extends StatelessWidget {
                         ),
                       ),
                       AppSizeConstants.widthConstants[17],
-                      Flexible(
+                      const Flexible(
                         flex: 3,
                         child: AppTextFieldWidget(
                           label: Appstrings.enterZipcode,

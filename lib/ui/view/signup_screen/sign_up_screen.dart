@@ -82,27 +82,27 @@ class SignUpScreenWidget extends StatelessWidget {
 
 List<Widget> signupDetailsWidgetList = [
   AppSizeConstants.heightConstants[29],
-  AppTextFieldWidget(
+  const AppTextFieldWidget(
     label: Appstrings.fullName,
     prefixIcon: AppIcons.userIcon,
   ),
   AppSizeConstants.heightConstants[20],
-  AppTextFieldWidget(
+  const AppTextFieldWidget(
     label: Appstrings.emailAddress,
     prefixIcon: AppIcons.atIcon,
   ),
   AppSizeConstants.heightConstants[20],
-  AppTextFieldWidget(
+  const AppTextFieldWidget(
     label: Appstrings.phoneNumber,
     prefixIcon: AppIcons.callIcon,
   ),
   AppSizeConstants.heightConstants[20],
-  AppTextFieldWidget(
+  const AppTextFieldWidget(
     label: Appstrings.password,
     prefixIcon: AppIcons.passwordIcon,
   ),
   AppSizeConstants.heightConstants[20],
-  AppTextFieldWidget(
+  const AppTextFieldWidget(
     label: Appstrings.reEnterPassword,
     prefixIcon: AppIcons.passwordIcon,
   ),

@@ -2,11 +2,10 @@ import 'package:farmer_eats/constants/colors.dart';
 
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class IconOvalBGWidget extends StatelessWidget {
-  IconOvalBGWidget({super.key, this.icon});
+  const IconOvalBGWidget({super.key, this.icon});
 
-  String? icon;
+  final String? icon;
 
   @override
   Widget build(BuildContext context) {
