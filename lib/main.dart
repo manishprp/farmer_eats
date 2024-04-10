@@ -1,5 +1,8 @@
+import 'package:farmer_eats/ui/view/onboarding/local_screen.dart';
 import 'package:flutter/material.dart';
 
+import 'ui/view/onboarding/convenient_screen.dart';
+import 'ui/view/onboarding/page_view_screen.dart';
 import 'ui/view/onboarding/quality_screen.dart';
 import 'ui/view/sign_in_screen/forgot_password_1.dart';
 import 'ui/view/sign_in_screen/otp_enter_screen.dart';
@@ -27,7 +30,7 @@ class FarmerEats extends StatelessWidget {
           //textTheme:
           //    GoogleFonts.beVietnamProTextTheme(Theme.of(context).textTheme),
         ),
-        home: const QualityScreen(),
+        home: const PageViewExample(),
       ),
     );
   }
