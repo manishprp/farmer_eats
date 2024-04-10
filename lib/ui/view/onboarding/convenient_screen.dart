@@ -6,6 +6,7 @@ import '../../../constants/app_icons.dart';
 import '../../../constants/app_strings.dart';
 import '../../../constants/app_textstyles.dart';
 import '../../../constants/colors.dart';
+import 'quality_screen.dart';
 
 class ConvenientScreen extends StatelessWidget {
   const ConvenientScreen({super.key});
@@ -47,13 +48,8 @@ class ConvenientScreen extends StatelessWidget {
                           style: kTS14FW400BlackFont,
                         ),
                         AppSizeConstants.heightConstants[30],
-                        Container(
-                          height: 7,
-                          width: 7,
-                          decoration: const BoxDecoration(
-                              color: AppColors.blackFont,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(3.5))),
+                        const CustomIndicatorWidget(
+                          selectedPage: 2,
                         ),
                         AppSizeConstants.heightConstants[30],
                         AppButton(

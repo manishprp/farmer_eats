@@ -30,7 +30,7 @@ class FarmerEats extends StatelessWidget {
           //textTheme:
           //    GoogleFonts.beVietnamProTextTheme(Theme.of(context).textTheme),
         ),
-        home: const PageViewExample(),
+        home: const PageViewScreen(),
       ),
     );
   }

@@ -47,13 +47,8 @@ class QualityScreen extends StatelessWidget {
                           style: kTS14FW400BlackFont,
                         ),
                         AppSizeConstants.heightConstants[30],
-                        Container(
-                          height: 7,
-                          width: 7,
-                          decoration: const BoxDecoration(
-                              color: AppColors.blackFont,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(3.5))),
+                        const CustomIndicatorWidget(
+                          selectedPage: 1,
                         ),
                         AppSizeConstants.heightConstants[30],
                         AppButton(
@@ -100,5 +95,42 @@ class QualityScreen extends StatelessWidget {
         // )
       ],
     ));
+  }
+}
+
+class CustomIndicatorWidget extends StatelessWidget {
+  const CustomIndicatorWidget({super.key, this.selectedPage = 1});
+  final int selectedPage;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          height: 7,
+          width: selectedPage == 1 ? 14 : 7,
+          decoration: const BoxDecoration(
+              color: AppColors.blackFont,
+              borderRadius: BorderRadius.all(Radius.circular(3.5))),
+        ),
+        AppSizeConstants.widthConstants[3],
+        Container(
+          height: 7,
+          width: selectedPage == 2 ? 14 : 7,
+          decoration: const BoxDecoration(
+              color: AppColors.blackFont,
+              borderRadius: BorderRadius.all(Radius.circular(3.5))),
+        ),
+        AppSizeConstants.widthConstants[3],
+        Container(
+          height: 7,
+          width: selectedPage == 3 ? 14 : 7,
+          decoration: const BoxDecoration(
+              color: AppColors.blackFont,
+              borderRadius: BorderRadius.all(Radius.circular(3.5))),
+        ),
+      ],
+    );
   }
 }

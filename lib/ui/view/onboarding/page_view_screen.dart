@@ -3,14 +3,14 @@ import 'package:farmer_eats/ui/view/onboarding/local_screen.dart';
 import 'package:farmer_eats/ui/view/onboarding/quality_screen.dart';
 import 'package:flutter/material.dart';
 
-class PageViewExample extends StatefulWidget {
-  const PageViewExample({super.key});
+class PageViewScreen extends StatefulWidget {
+  const PageViewScreen({super.key});
 
   @override
-  State<PageViewExample> createState() => _PageViewExampleState();
+  State<PageViewScreen> createState() => _PageViewScreenState();
 }
 
-class _PageViewExampleState extends State<PageViewExample>
+class _PageViewScreenState extends State<PageViewScreen>
     with TickerProviderStateMixin {
   late PageController _pageViewController;
   late TabController _tabController;
