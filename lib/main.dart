@@ -1,3 +1,7 @@
+import 'package:farmer_eats/routes/routes.dart';
+import 'package:farmer_eats/services/file_picker.dart';
+import 'package:farmer_eats/viewmodel/signup_bloc/bloc/signup_bloc_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'model/repositories/forgotpassrepo/i_forgot_password_repo.dart';
@@ -25,6 +29,7 @@ void setupLocator() {
       () => ForgotPasswordRepository());
   GetIt.I.registerFactory<ISignInUserRepository>(() => SignInUserRepository());
   GetIt.I.registerFactory<ISignupUserRepository>(() => SignupUserRepository());
+  GetIt.I.registerSingleton<FilePickerClass>(FilePickerClass());
 }
 
 class FarmerEats extends StatelessWidget {
@@ -33,12 +38,22 @@ class FarmerEats extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primaryColor: Colors.blue,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<SignupBlocBloc>(
+            create: (context) {
+              return SignupBlocBloc();
+            },
+          )
+        ],
+        child: MaterialApp(
+          routes: Routes.routes,
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primaryColor: Colors.blue,
+          ),
+          home: const PageViewScreen(),
         ),
-        home: const PageViewScreen(),
       ),
     );
   }

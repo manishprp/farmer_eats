@@ -1,3 +1,5 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../constants/app_icons.dart';
 import '../../../constants/app_strings.dart';
 import '../../../constants/colors.dart';
@@ -5,14 +7,37 @@ import 'package:flutter/material.dart';
 
 import '../../../constants/app_spaces.dart';
 import '../../../constants/app_textstyles.dart';
+import '../../../routes/app_routes.dart';
+import '../../../viewmodel/signup_bloc/bloc/signup_bloc_bloc.dart';
 import '../common/app_button_widget.dart';
 import '../common/app_text_field.dart';
 
 class SignUpScreenStep2Widget extends StatelessWidget {
-  const SignUpScreenStep2Widget({super.key});
+  SignUpScreenStep2Widget({super.key});
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _businessNameTextEditingController =
+      TextEditingController(text: Appstrings.emptyString);
+
+  final TextEditingController _informalNameTextEditingController =
+      TextEditingController(text: Appstrings.emptyString);
+
+  final TextEditingController _streetAddressTextEditingController =
+      TextEditingController(text: Appstrings.emptyString);
+
+  final TextEditingController _cityTextEditingController =
+      TextEditingController(text: Appstrings.emptyString);
+
+  final TextEditingController _stateTextEditingController =
+      TextEditingController(text: Appstrings.emptyString);
+
+  final TextEditingController _zipcodeTextEditingController =
+      TextEditingController(text: Appstrings.emptyString);
 
   @override
   Widget build(BuildContext context) {
+    var keyboard = MediaQuery.of(context).viewInsets.bottom;
+    final sharedObjectBloc = BlocProvider.of<SignupBlocBloc>(context);
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -23,82 +48,160 @@ class SignUpScreenStep2Widget extends StatelessWidget {
                 minWidth: constraints.maxWidth),
             child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    Appstrings.farmerEats,
-                    style: kTS16SpBlack,
-                  ),
-                  AppSizeConstants.heightConstants[40],
-                  Text(
-                    Appstrings.signup2Of4,
-                    style: kTS14SpLightBlack.copyWith(
-                        color: AppColors.black.withOpacity(0.3)),
-                  ),
-                  AppSizeConstants.heightConstants[10],
-                  const Text(
-                    Appstrings.farmInfo,
-                    style: kTS32SpBlackFont,
-                  ),
-                  AppSizeConstants.heightConstants[29],
-                  const AppTextFieldWidget(
-                    label: Appstrings.businessName,
-                    prefixIcon: AppIcons.tagIcon,
-                  ),
-                  AppSizeConstants.heightConstants[20],
-                  const AppTextFieldWidget(
-                    label: Appstrings.informalName,
-                    prefixIcon: AppIcons.smilyIcon,
-                  ),
-                  AppSizeConstants.heightConstants[20],
-                  const AppTextFieldWidget(
-                    label: Appstrings.streetAddress,
-                    prefixIcon: AppIcons.homeIcon,
-                  ),
-                  AppSizeConstants.heightConstants[20],
-                  const AppTextFieldWidget(
-                    label: Appstrings.city,
-                    prefixIcon: AppIcons.locationIcon,
-                  ),
-                  AppSizeConstants.heightConstants[20],
-                  // state and zip code
-                  Row(
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Flexible(
-                        flex: 2,
-                        child: AppTextFieldWidget(
-                          label: Appstrings.state,
-                          suffixIon: Image.asset(AppIcons.dropDownIcon),
-                          prefixIcon: null,
-                        ),
+                      const Text(
+                        Appstrings.farmerEats,
+                        style: kTS16SpBlack,
                       ),
-                      AppSizeConstants.widthConstants[17],
-                      const Flexible(
-                        flex: 3,
-                        child: AppTextFieldWidget(
-                          label: Appstrings.enterZipcode,
-                          prefixIcon: null,
+                      AppSizeConstants.heightConstants[40],
+                      Text(
+                        Appstrings.signup2Of4,
+                        style: kTS14SpLightBlack.copyWith(
+                            color: AppColors.black.withOpacity(0.3)),
+                      ),
+                      AppSizeConstants.heightConstants[10],
+                      const Text(
+                        Appstrings.farmInfo,
+                        style: kTS32SpBlackFont,
+                      ),
+                      AppSizeConstants.heightConstants[29],
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            AppTextFieldWidget(
+                              validator: (businessName) {
+                                if (businessName!.isEmpty) {
+                                  return Appstrings
+                                      .businessNameShouldNotBeEmpty;
+                                }
+                                return null;
+                              },
+                              controller: _businessNameTextEditingController,
+                              label: Appstrings.businessName,
+                              prefixIcon: AppIcons.tagIcon,
+                            ),
+                            AppSizeConstants.heightConstants[20],
+                            AppTextFieldWidget(
+                              validator: (informalName) {
+                                return null;
+                              },
+                              controller: _informalNameTextEditingController,
+                              label: Appstrings.informalName,
+                              prefixIcon: AppIcons.smilyIcon,
+                            ),
+                            AppSizeConstants.heightConstants[20],
+                            AppTextFieldWidget(
+                              validator: (streetAddress) {
+                                if (streetAddress!.isEmpty) {
+                                  return Appstrings
+                                      .streetAddressShouldNotBeEmpty;
+                                }
+                                return null;
+                              },
+                              controller: _streetAddressTextEditingController,
+                              label: Appstrings.streetAddress,
+                              prefixIcon: AppIcons.homeIcon,
+                            ),
+                            AppSizeConstants.heightConstants[20],
+                            AppTextFieldWidget(
+                              validator: (city) {
+                                if (city!.isEmpty) {
+                                  return Appstrings.cityShouldNotBeEmpty;
+                                }
+                                return null;
+                              },
+                              controller: _cityTextEditingController,
+                              label: Appstrings.city,
+                              prefixIcon: AppIcons.locationIcon,
+                            ),
+                            AppSizeConstants.heightConstants[20],
+                            // state and zip code
+                            Row(
+                              children: [
+                                Flexible(
+                                  flex: 2,
+                                  child: AppTextFieldWidget(
+                                    validator: (state) {
+                                      if (state!.isEmpty) {
+                                        return Appstrings.stateShouldNotBeEmpty;
+                                      }
+                                      return null;
+                                    },
+                                    controller: _stateTextEditingController,
+                                    label: Appstrings.state,
+                                    suffixIon:
+                                        Image.asset(AppIcons.dropDownIcon),
+                                    prefixIcon: null,
+                                  ),
+                                ),
+                                AppSizeConstants.widthConstants[17],
+                                Flexible(
+                                  flex: 3,
+                                  child: AppTextFieldWidget(
+                                    validator: (zipcode) {
+                                      if (zipcode!.isEmpty) {
+                                        return Appstrings
+                                            .zipcodeShouldNotBeEmpty;
+                                      }
+                                      return null;
+                                    },
+                                    controller: _zipcodeTextEditingController,
+                                    label: Appstrings.enterZipcode,
+                                    prefixIcon: null,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
-                  AppSizeConstants.heightConstants[49],
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                          onPressed: () {},
-                          icon: Image.asset(AppIcons.backArrowIcon)),
-                      AppButton(
-                        onTap: () {},
-                        child: const Center(
-                          child: Text(
-                            Appstrings.continueText,
-                            style: kTS18White,
+                  SizedBox(
+                    height: 50,
+                    width: MediaQuery.of(context).size.width,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            icon: Image.asset(AppIcons.backArrowIcon)),
+                        AppButton(
+                          onTap: () {
+                            if (_formKey.currentState?.validate() ?? false) {
+                              sharedObjectBloc.sharedObject.businessName =
+                                  _businessNameTextEditingController.text;
+                              sharedObjectBloc.sharedObject.informalName =
+                                  _informalNameTextEditingController.text;
+                              sharedObjectBloc.sharedObject.address =
+                                  _streetAddressTextEditingController.text;
+                              sharedObjectBloc.sharedObject.city =
+                                  _cityTextEditingController.text;
+                              sharedObjectBloc.sharedObject.zipCode =
+                                  int.tryParse(
+                                      _zipcodeTextEditingController.text);
+                              sharedObjectBloc.sharedObject.state =
+                                  _stateTextEditingController.text;
+                              Navigator.of(context)
+                                  .pushNamed(AppRoutes.signUpPage3);
+                            }
+                          },
+                          child: const Center(
+                            child: Text(
+                              Appstrings.continueText,
+                              style: kTS18White,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   )
                 ],
               ),

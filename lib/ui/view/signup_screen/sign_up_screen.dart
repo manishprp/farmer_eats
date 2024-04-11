@@ -1,3 +1,9 @@
+import 'package:flutter/widgets.dart';
+
+import '../../../routes/app_routes.dart';
+import '../../../viewmodel/signup_bloc/bloc/signup_bloc_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../constants/app_icons.dart';
 import '../../../constants/app_strings.dart';
 import '../../../constants/colors.dart';
@@ -9,11 +15,44 @@ import '../common/app_button_widget.dart';
 import '../common/app_text_field.dart';
 import '../common/signup_options_widget.dart';
 
-class SignUpScreenWidget extends StatelessWidget {
+class SignUpScreenWidget extends StatefulWidget {
   const SignUpScreenWidget({super.key});
 
   @override
+  State<SignUpScreenWidget> createState() => _SignUpScreenWidgetState();
+}
+
+class _SignUpScreenWidgetState extends State<SignUpScreenWidget> {
+  final TextEditingController _fullnameTextEditingController =
+      TextEditingController(text: Appstrings.emptyString);
+
+  final TextEditingController _emailAddressTextEditingController =
+      TextEditingController(text: Appstrings.emptyString);
+
+  final TextEditingController _phoneNumberTextEditingController =
+      TextEditingController(text: Appstrings.emptyString);
+
+  final TextEditingController _passwordTextEditingController =
+      TextEditingController(text: Appstrings.emptyString);
+
+  final TextEditingController _reEnterPasswordTextEditingController =
+      TextEditingController(text: Appstrings.emptyString);
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _fullnameTextEditingController.dispose();
+    _emailAddressTextEditingController.dispose();
+    _phoneNumberTextEditingController.dispose();
+    _passwordTextEditingController.dispose();
+    _reEnterPasswordTextEditingController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final sharedObjectBloc = BlocProvider.of<SignupBlocBloc>(context);
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -51,16 +90,110 @@ class SignUpScreenWidget extends StatelessWidget {
                           color: AppColors.black.withOpacity(0.3)),
                     ),
                   ),
-                  ...signupDetailsWidgetList,
+                  AppSizeConstants.heightConstants[29],
+                  // form
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        AppTextFieldWidget(
+                          controller: _fullnameTextEditingController,
+                          label: Appstrings.fullName,
+                          prefixIcon: AppIcons.userIcon,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return Appstrings.fullnameCannotBeEmpty;
+                            }
+                            return null;
+                          },
+                        ),
+                        AppSizeConstants.heightConstants[20],
+                        AppTextFieldWidget(
+                          controller: _emailAddressTextEditingController,
+                          label: Appstrings.emailAddress,
+                          prefixIcon: AppIcons.atIcon,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return Appstrings.emailaddressCannotBeEmpty;
+                            }
+                            return null;
+                          },
+                        ),
+                        AppSizeConstants.heightConstants[20],
+                        AppTextFieldWidget(
+                          controller: _phoneNumberTextEditingController,
+                          label: Appstrings.phoneNumber,
+                          prefixIcon: AppIcons.callIcon,
+                          validator: (value) {
+                            if (value!.length != 10) {
+                              return Appstrings.invalidPhoneNumber;
+                            }
+                            return null;
+                          },
+                        ),
+                        AppSizeConstants.heightConstants[20],
+                        AppTextFieldWidget(
+                          controller: _passwordTextEditingController,
+                          label: Appstrings.password,
+                          prefixIcon: AppIcons.passwordIcon,
+                          validator: (value) {
+                            if (value!.length < 6) {
+                              return Appstrings
+                                  .passwordShouldBeAtleast6CharactersLong;
+                            }
+                            return null;
+                          },
+                        ),
+                        AppSizeConstants.heightConstants[20],
+                        AppTextFieldWidget(
+                          controller: _reEnterPasswordTextEditingController,
+                          label: Appstrings.reEnterPassword,
+                          prefixIcon: AppIcons.passwordIcon,
+                          validator: (value) {
+                            if (value!.length < 6) {
+                              return Appstrings
+                                  .passwordShouldBeAtleast6CharactersLong;
+                            }
+                            if (value != _passwordTextEditingController.text) {
+                              return Appstrings
+                                  .passwordAndConfirmPasswordShouldBeSimilar;
+                            }
+                            return null;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  AppSizeConstants.heightConstants[49],
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        Appstrings.login,
-                        style: kTS14SpUnderLineBlack,
+                      GestureDetector(
+                        onTap: () {
+                          //Navigator.of(context).pushNamed(AppRoutes.signinpage);
+                        },
+                        child: const Text(
+                          Appstrings.login,
+                          style: kTS14SpUnderLineBlack,
+                        ),
                       ),
                       AppButton(
-                        onTap: () {},
+                        onTap: () {
+                          var validat = _formKey.currentState!.validate();
+                          if (validat) {
+                            sharedObjectBloc.sharedObject.fullName =
+                                _fullnameTextEditingController.text;
+                            sharedObjectBloc.sharedObject.email =
+                                _emailAddressTextEditingController.text;
+                            sharedObjectBloc.sharedObject.phone =
+                                _phoneNumberTextEditingController.text;
+                            sharedObjectBloc.sharedObject.password =
+                                _passwordTextEditingController.text;
+                            Navigator.of(context)
+                                .pushNamed(AppRoutes.signUpPage2);
+                          }
+                        },
                         child: const Center(
                           child: Text(
                             Appstrings.continueText,
@@ -79,32 +212,3 @@ class SignUpScreenWidget extends StatelessWidget {
     );
   }
 }
-
-List<Widget> signupDetailsWidgetList = [
-  AppSizeConstants.heightConstants[29],
-  const AppTextFieldWidget(
-    label: Appstrings.fullName,
-    prefixIcon: AppIcons.userIcon,
-  ),
-  AppSizeConstants.heightConstants[20],
-  const AppTextFieldWidget(
-    label: Appstrings.emailAddress,
-    prefixIcon: AppIcons.atIcon,
-  ),
-  AppSizeConstants.heightConstants[20],
-  const AppTextFieldWidget(
-    label: Appstrings.phoneNumber,
-    prefixIcon: AppIcons.callIcon,
-  ),
-  AppSizeConstants.heightConstants[20],
-  const AppTextFieldWidget(
-    label: Appstrings.password,
-    prefixIcon: AppIcons.passwordIcon,
-  ),
-  AppSizeConstants.heightConstants[20],
-  const AppTextFieldWidget(
-    label: Appstrings.reEnterPassword,
-    prefixIcon: AppIcons.passwordIcon,
-  ),
-  AppSizeConstants.heightConstants[49],
-];

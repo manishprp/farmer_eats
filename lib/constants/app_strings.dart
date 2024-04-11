@@ -64,6 +64,24 @@ class Appstrings {
       "Our team of delivery drivers will make sure your orders are picked up on time and promptly delivered to your customers.";
   static const String weLoveTheEarthAndKnow =
       "We love the earth and know you do too! Join us in reducing our local carbon footprint one order at a time. ";
+  static const String emptyString = "";
+  static const String fullnameCannotBeEmpty = "Fullname cannot be empty";
+  static const String emailaddressCannotBeEmpty =
+      "Email Address cannot be empty";
+  static const String invalidPhoneNumber = "Invalid phone number";
+  static const String passwordShouldBeAtleast6CharactersLong =
+      "Password should be atleast 6 characters long";
+
+  static const String passwordAndConfirmPasswordShouldBeSimilar =
+      "Password and confirm password should be similar";
+
+  static const String businessNameShouldNotBeEmpty =
+      "Business name should not be empty.";
+  static const String streetAddressShouldNotBeEmpty =
+      "Street address should not be empty.";
+  static const String cityShouldNotBeEmpty = "City should not be empty.";
+  static const String stateShouldNotBeEmpty = "State should not be empty.";
+  static const String zipcodeShouldNotBeEmpty = "ZipCode should not be empty.";
 
   /// Api Constants
   static const String baseUrl = "https://sowlab.com/assignment/";

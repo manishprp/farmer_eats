@@ -1,5 +1,6 @@
 import 'package:farmer_eats/model/weekday.dart';
 import 'package:farmer_eats/model/weekday_data.dart';
+import 'package:farmer_eats/routes/app_routes.dart';
 
 import '../../../constants/app_icons.dart';
 import '../../../constants/app_strings.dart';
@@ -36,7 +37,9 @@ class SignUpScreenStep4Widget extends StatelessWidget {
                 onPressed: () {}, icon: Image.asset(AppIcons.backArrowIcon)),
           ),
           AppButton(
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed(AppRoutes.signupDone);
+            },
             child: const Center(
               child: Text(
                 Appstrings.continueText,

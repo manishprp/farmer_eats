@@ -8,29 +8,42 @@ class AppTextFieldWidget extends StatelessWidget {
       this.label,
       this.controller,
       required this.prefixIcon,
-      this.suffixIon});
+      this.suffixIon,
+      this.validator});
   final String? label;
   final TextEditingController? controller;
   final String? prefixIcon;
   final Widget? suffixIon;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 48,
       clipBehavior: Clip.antiAlias,
+      //height: 48,
       decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(8))),
-      child: TextField(
-        controller: controller,
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: AppColors.black.withOpacity(0.08),
-          hintStyle: TextStyle(color: AppColors.black.withOpacity(0.3)),
-          border: InputBorder.none,
-          prefixIcon: prefixIcon != null ? Image.asset(prefixIcon!) : null,
-          suffixIcon: suffixIon,
-          hintText: label,
+        borderRadius: BorderRadius.all(
+          Radius.circular(10),
+        ),
+      ),
+      child: Center(
+        child: TextFormField(
+          controller: controller,
+          decoration: InputDecoration(
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            filled: true,
+            fillColor: AppColors.black.withOpacity(0.08),
+            hintStyle: TextStyle(color: AppColors.black.withOpacity(0.3)),
+            border: InputBorder.none,
+            prefixIcon: prefixIcon != null
+                ? SizedBox(
+                    height: 28, width: 28, child: Image.asset(prefixIcon!))
+                : null,
+            suffixIcon: suffixIon,
+            hintText: label,
+          ),
+          validator: validator,
         ),
       ),
     );

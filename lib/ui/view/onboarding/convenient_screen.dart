@@ -1,11 +1,12 @@
-import 'package:farmer_eats/constants/app_spaces.dart';
-import 'package:farmer_eats/ui/view/common/app_button_widget.dart';
+import '../../../constants/app_spaces.dart';
+import '../common/app_button_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/app_icons.dart';
 import '../../../constants/app_strings.dart';
 import '../../../constants/app_textstyles.dart';
 import '../../../constants/colors.dart';
+import '../../../routes/app_routes.dart';
 import 'quality_screen.dart';
 
 class ConvenientScreen extends StatelessWidget {
@@ -53,7 +54,9 @@ class ConvenientScreen extends StatelessWidget {
                         ),
                         AppSizeConstants.heightConstants[30],
                         AppButton(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(context, AppRoutes.signUpPage1);
+                          },
                           color: AppColors.yellorangish,
                           width: width - 40,
                           child: const Center(

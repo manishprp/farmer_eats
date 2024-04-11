@@ -1,4 +1,5 @@
 import 'package:farmer_eats/constants/app_spaces.dart';
+import 'package:farmer_eats/routes/app_routes.dart';
 import 'package:farmer_eats/ui/view/common/app_button_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -52,7 +53,9 @@ class QualityScreen extends StatelessWidget {
                         ),
                         AppSizeConstants.heightConstants[30],
                         AppButton(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(context, AppRoutes.signUpPage1);
+                          },
                           color: AppColors.greenishBgColor,
                           width: width - 40,
                           child: const Center(
@@ -80,19 +83,6 @@ class QualityScreen extends StatelessWidget {
             ),
           ),
         )
-//
-        // SizedBox(
-        //   height: height / 2,
-        //   width: width,
-        //   child: const Column(
-        //     children: [
-        //       Text(
-        //         Appstrings.quality,
-        //         style: kTS24FW700black,
-        //       )
-        //     ],
-        //   ),
-        // )
       ],
     ));
   }

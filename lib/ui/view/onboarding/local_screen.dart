@@ -6,6 +6,7 @@ import '../../../constants/app_icons.dart';
 import '../../../constants/app_strings.dart';
 import '../../../constants/app_textstyles.dart';
 import '../../../constants/colors.dart';
+import '../../../routes/app_routes.dart';
 import 'quality_screen.dart';
 
 class LocalScreen extends StatelessWidget {
@@ -53,7 +54,9 @@ class LocalScreen extends StatelessWidget {
                         ),
                         AppSizeConstants.heightConstants[30],
                         AppButton(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(context, AppRoutes.signUpPage1);
+                          },
                           color: AppColors.buttonColor,
                           width: width - 40,
                           child: const Center(
