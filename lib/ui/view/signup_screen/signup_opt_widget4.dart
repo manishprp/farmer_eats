@@ -11,21 +11,34 @@ import '../../../constants/app_spaces.dart';
 import '../../../constants/app_textstyles.dart';
 import '../common/app_button_widget.dart';
 
-class SignUpScreenStep4Widget extends StatelessWidget {
+class SignUpScreenStep4Widget extends StatefulWidget {
   const SignUpScreenStep4Widget({super.key});
 
   @override
+  State<SignUpScreenStep4Widget> createState() =>
+      _SignUpScreenStep4WidgetState();
+}
+
+var weekDay = [
+  WeekDayData(weekday: WeekDay.M),
+  WeekDayData(weekday: WeekDay.T),
+  WeekDayData(weekday: WeekDay.W),
+  WeekDayData(weekday: WeekDay.Th),
+  WeekDayData(weekday: WeekDay.F),
+  WeekDayData(weekday: WeekDay.S),
+  WeekDayData(weekday: WeekDay.Su),
+];
+
+bool isFirstSelected = false;
+bool isSecondSelected = false;
+bool isThirdSelected = false;
+bool isFourthSelected = false;
+bool isFifthSelected = false;
+
+class _SignUpScreenStep4WidgetState extends State<SignUpScreenStep4Widget> {
+  @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    var weekDay = [
-      WeekDayData(weekday: WeekDay.M),
-      WeekDayData(weekday: WeekDay.T),
-      WeekDayData(weekday: WeekDay.W),
-      WeekDayData(weekday: WeekDay.Th),
-      WeekDayData(weekday: WeekDay.F),
-      WeekDayData(weekday: WeekDay.S),
-      WeekDayData(weekday: WeekDay.Su),
-    ];
 
     return Scaffold(
       floatingActionButton: Row(
@@ -112,7 +125,42 @@ class SignUpScreenStep4Widget extends StatelessWidget {
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
-                            return WeekBoxWidget(weekDay: weekDay[index]);
+                            return GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  var prevSelected = weekDay
+                                      .where((element) => element.isSelected)
+                                      .toList()
+                                      .firstOrNull;
+
+                                  for (var element in weekDay) {
+                                    element.isSelected = false;
+                                  }
+                                  weekDay[index].isSelected =
+                                      !weekDay[index].isSelected;
+
+                                  if (prevSelected != null) {
+                                    if (prevSelected.weekday !=
+                                        weekDay[index].weekday) {
+                                      isFirstSelected = false;
+                                      isSecondSelected = false;
+                                      isThirdSelected = false;
+                                      isFourthSelected = false;
+                                      isFifthSelected = false;
+                                    }
+                                  }
+
+                                  // weekDay[index] = WeekDayData(
+                                  //   weekday: selected.weekday,
+                                  //   isSelected: !selected.isSelected,
+                                  //   isDone: selected.isDone,
+                                  // );
+                                });
+                              },
+                              child: WeekBoxWidget(
+                                weekDay: weekDay[index],
+                              ),
+                            );
                           },
                           itemCount: 7),
                     ),
@@ -122,26 +170,34 @@ class SignUpScreenStep4Widget extends StatelessWidget {
                   Row(
                     children: [
                       DayWidget(
-                          onSelectionChanged: (isSelected) {},
-                          width: width / 2 - 21,
-                          child: Center(
-                              child: Text(
+                        onSelectionChanged: (isSelected) {
+                          isFirstSelected = isSelected;
+                        },
+                        width: width / 2 - 21,
+                        child: Center(
+                          child: Text(
                             Appstrings.eightam10am,
                             style: kTS14SpUnderLineBlack.copyWith(
                               decoration: TextDecoration.none,
                             ),
-                          ))),
+                          ),
+                        ),
+                      ),
                       AppSizeConstants.widthConstants[9],
                       DayWidget(
-                          onSelectionChanged: (isSelected) {},
-                          width: width / 2 - 21,
-                          child: Center(
-                              child: Text(
+                        onSelectionChanged: (isSelected) {
+                          isSecondSelected = isSelected;
+                        },
+                        width: width / 2 - 21,
+                        child: Center(
+                          child: Text(
                             Appstrings.temAm1Pm,
                             style: kTS14SpUnderLineBlack.copyWith(
                               decoration: TextDecoration.none,
                             ),
-                          ))),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
 
@@ -149,7 +205,9 @@ class SignUpScreenStep4Widget extends StatelessWidget {
                   Row(
                     children: [
                       DayWidget(
-                          onSelectionChanged: (isSelected) {},
+                          onSelectionChanged: (isSelected) {
+                            isThirdSelected = isSelected;
+                          },
                           width: width / 2 - 21,
                           child: Center(
                               child: Text(
@@ -160,7 +218,9 @@ class SignUpScreenStep4Widget extends StatelessWidget {
                           ))),
                       AppSizeConstants.widthConstants[9],
                       DayWidget(
-                          onSelectionChanged: (isSelected) {},
+                          onSelectionChanged: (isSelected) {
+                            isFourthSelected = isSelected;
+                          },
                           width: width / 2 - 21,
                           child: Center(
                               child: Text(
@@ -173,7 +233,9 @@ class SignUpScreenStep4Widget extends StatelessWidget {
                   ),
                   AppSizeConstants.heightConstants[9],
                   DayWidget(
-                      onSelectionChanged: (isSelected) {},
+                      onSelectionChanged: (isSelected) {
+                        isFifthSelected = isSelected;
+                      },
                       width: width / 2 - 21,
                       child: Center(
                           child: Text(
@@ -236,11 +298,17 @@ class _DayWidgetState extends State<DayWidget> {
   }
 }
 
-class WeekBoxWidget extends StatelessWidget {
+class WeekBoxWidget extends StatefulWidget {
   const WeekBoxWidget(
       {super.key, required this.weekDay, this.bgColor = AppColors.blackFont});
   final WeekDayData weekDay;
   final Color bgColor;
+
+  @override
+  State<WeekBoxWidget> createState() => _WeekBoxWidgetState();
+}
+
+class _WeekBoxWidgetState extends State<WeekBoxWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -248,15 +316,29 @@ class WeekBoxWidget extends StatelessWidget {
       height: 37,
       width: 36,
       decoration: BoxDecoration(
-        border:
-            Border.all(width: 1, color: AppColors.blackFont.withOpacity(0.08)),
-        color: bgColor.withOpacity(0.08),
+        border: Border.all(
+          width: (!widget.weekDay.isDone && !widget.weekDay.isSelected) ? 1 : 0,
+          color: AppColors.blackFont.withOpacity(
+            0.08,
+          ),
+        ),
+        color: widget.weekDay.isDone
+            ? widget.bgColor.withOpacity(0.08)
+            : widget.weekDay.isSelected
+                ? AppColors.buttonColor
+                : AppColors.white,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Center(
         child: Text(
-          weekDay.weekday?.name ?? "",
-          style: kTS16FW400Black,
+          widget.weekDay.weekday?.name ?? "",
+          style: kTS16FW400Black.copyWith(
+            color: widget.weekDay.isDone
+                ? AppColors.black
+                : widget.weekDay.isSelected
+                    ? AppColors.white
+                    : widget.bgColor.withOpacity(0.08),
+          ),
         ),
       ),
     );

@@ -35,7 +35,7 @@ class SignUpScreenStep2Widget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var keyboard = MediaQuery.of(context).viewInsets.bottom;
+    //var keyboard = MediaQuery.of(context).viewInsets.bottom;
     final sharedObjectBloc = BlocProvider.of<SignupBlocBloc>(context);
 
     return Scaffold(
