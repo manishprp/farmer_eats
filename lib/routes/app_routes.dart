@@ -34,7 +34,7 @@ class AppRoutes {
     signupDone: (context) => const SignupDoneWidget(),
     signInMain: (context) => const SignInMain(),
     forgotPasswordScreen: (context) => ForgotPasswordScreen(),
-    verifyOtpScreen: (context) => const OtpEnterScreen(),
+    verifyOtpScreen: (context) => OtpEnterScreen(),
     resetPasswordScreen: (context) => const ResetPassScreen(),
   };
 }
