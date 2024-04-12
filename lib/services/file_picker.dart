@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 class FilePickerClass {
   Future<PlatformFile?> filePick({required BuildContext context}) async {
     PlatformFile? file;
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
-
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles();
+      file = result!.files.first;
+    } catch (e) {}
     return file;
   }
 }

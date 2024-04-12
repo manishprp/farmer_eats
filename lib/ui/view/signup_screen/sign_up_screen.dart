@@ -1,3 +1,5 @@
+import 'package:get_it/get_it.dart';
+
 import '../../../routes/app_routes.dart';
 import '../../../viewmodel/signup_bloc/bloc/signup_bloc_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,7 +51,7 @@ class _SignUpScreenWidgetState extends State<SignUpScreenWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final sharedObjectBloc = BlocProvider.of<SignupBlocBloc>(context);
+    final sharedObjectBloc = GetIt.I<SignupBlocBloc>();
 
     return Scaffold(
       body: Padding(
@@ -95,6 +97,7 @@ class _SignUpScreenWidgetState extends State<SignUpScreenWidget> {
                     child: Column(
                       children: [
                         AppTextFieldWidget(
+                          inputype: TextInputType.text,
                           controller: _fullnameTextEditingController,
                           label: Appstrings.fullName,
                           prefixIcon: AppIcons.userIcon,
@@ -107,6 +110,7 @@ class _SignUpScreenWidgetState extends State<SignUpScreenWidget> {
                         ),
                         AppSizeConstants.heightConstants[20],
                         AppTextFieldWidget(
+                          inputype: TextInputType.emailAddress,
                           controller: _emailAddressTextEditingController,
                           label: Appstrings.emailAddress,
                           prefixIcon: AppIcons.atIcon,
@@ -119,6 +123,7 @@ class _SignUpScreenWidgetState extends State<SignUpScreenWidget> {
                         ),
                         AppSizeConstants.heightConstants[20],
                         AppTextFieldWidget(
+                          inputype: TextInputType.phone,
                           controller: _phoneNumberTextEditingController,
                           label: Appstrings.phoneNumber,
                           prefixIcon: AppIcons.callIcon,
@@ -131,6 +136,7 @@ class _SignUpScreenWidgetState extends State<SignUpScreenWidget> {
                         ),
                         AppSizeConstants.heightConstants[20],
                         AppTextFieldWidget(
+                          inputype: TextInputType.visiblePassword,
                           controller: _passwordTextEditingController,
                           label: Appstrings.password,
                           prefixIcon: AppIcons.passwordIcon,
@@ -144,6 +150,7 @@ class _SignUpScreenWidgetState extends State<SignUpScreenWidget> {
                         ),
                         AppSizeConstants.heightConstants[20],
                         AppTextFieldWidget(
+                          inputype: TextInputType.visiblePassword,
                           controller: _reEnterPasswordTextEditingController,
                           label: Appstrings.reEnterPassword,
                           prefixIcon: AppIcons.passwordIcon,

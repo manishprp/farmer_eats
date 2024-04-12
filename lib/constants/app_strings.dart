@@ -74,7 +74,9 @@ class Appstrings {
 
   static const String passwordAndConfirmPasswordShouldBeSimilar =
       "Password and confirm password should be similar";
-
+  static const String youAreAllDone = "You’re all done!"; //
+  static const String hangTightWeAreCurrentlyReviewing =
+      "Hang tight!  We are currently reviewing your account and will follow up with you in 2-3 business days. In the meantime, you can setup your inventory.";
   static const String businessNameShouldNotBeEmpty =
       "Business name should not be empty.";
   static const String streetAddressShouldNotBeEmpty =

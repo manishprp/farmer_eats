@@ -9,12 +9,14 @@ class AppTextFieldWidget extends StatelessWidget {
       this.controller,
       required this.prefixIcon,
       this.suffixIon,
+      this.inputype = TextInputType.none,
       this.validator});
   final String? label;
   final TextEditingController? controller;
   final String? prefixIcon;
   final Widget? suffixIon;
   final String? Function(String?)? validator;
+  final TextInputType? inputype;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class AppTextFieldWidget extends StatelessWidget {
       ),
       child: Center(
         child: TextFormField(
+          keyboardType: inputype,
           controller: controller,
           decoration: InputDecoration(
             contentPadding:

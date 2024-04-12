@@ -1,24 +1,36 @@
-import 'package:farmer_eats/model/weekday.dart';
-import 'package:farmer_eats/model/weekday_data.dart';
-import 'package:farmer_eats/routes/app_routes.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 import '../../../constants/app_icons.dart';
-import '../../../constants/app_strings.dart';
-import '../../../constants/colors.dart';
-import 'package:flutter/material.dart';
-
 import '../../../constants/app_spaces.dart';
+import '../../../constants/app_strings.dart';
 import '../../../constants/app_textstyles.dart';
+import '../../../constants/colors.dart';
+import '../../../model/datamodel/register_model.dart';
+import '../../../model/weekday.dart';
+import '../../../model/weekday_data.dart';
+import '../../../routes/app_routes.dart';
+import '../../../viewmodel/signup_bloc/bloc/signup_bloc_bloc.dart';
 import '../common/app_button_widget.dart';
 
-class SignUpScreenStep4Widget extends StatefulWidget {
-  const SignUpScreenStep4Widget({super.key});
+List<List<String>> listOfWeek = [
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+];
 
-  @override
-  State<SignUpScreenStep4Widget> createState() =>
-      _SignUpScreenStep4WidgetState();
-}
-
+bool isFifthSelected = false;
+bool isFirstSelected = false;
+bool isFourthSelected = false;
+bool isSecondSelected = false;
+bool isThirdSelected = false;
+List<Widget> signupDetailsWidgetList = [];
+int currentSelectedIndex = 0;
 var weekDay = [
   WeekDayData(weekday: WeekDay.M),
   WeekDayData(weekday: WeekDay.T),
@@ -29,15 +41,77 @@ var weekDay = [
   WeekDayData(weekday: WeekDay.Su),
 ];
 
-bool isFirstSelected = false;
-bool isSecondSelected = false;
-bool isThirdSelected = false;
-bool isFourthSelected = false;
-bool isFifthSelected = false;
+class WeekBoxWidget extends StatefulWidget {
+  final WeekDayData weekDay;
+  final Color bgColor;
+  const WeekBoxWidget({
+    super.key,
+    required this.weekDay,
+    this.bgColor = AppColors.blackFont,
+  });
+
+  @override
+  State<WeekBoxWidget> createState() => _WeekBoxWidgetState();
+}
+
+class SignUpScreenStep4Widget extends StatefulWidget {
+  const SignUpScreenStep4Widget({super.key});
+
+  @override
+  State<SignUpScreenStep4Widget> createState() =>
+      _SignUpScreenStep4WidgetState();
+}
+
+class DayWidget extends StatefulWidget {
+  final double width;
+  bool isSelected;
+  final Widget child;
+  final Color selectedColor;
+  final Function(bool isSelected) onSelectionChanged;
+
+  DayWidget(
+      {super.key,
+      required this.width,
+      required this.child,
+      this.selectedColor = AppColors.yellorangish,
+      required this.onSelectionChanged,
+      this.isSelected = false});
+
+  @override
+  State<DayWidget> createState() => _DayWidgetState();
+}
+
+class _DayWidgetState extends State<DayWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          widget.isSelected = !widget.isSelected;
+        });
+        widget.onSelectionChanged(widget.isSelected);
+      },
+      child: Container(
+          width: widget.width,
+          height: 48,
+          decoration: BoxDecoration(
+            color: widget.isSelected
+                ? widget.selectedColor
+                : AppColors.blackFont.withOpacity(0.08),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+          child: widget.child),
+    );
+  }
+}
 
 class _SignUpScreenStep4WidgetState extends State<SignUpScreenStep4Widget> {
   @override
   Widget build(BuildContext context) {
+    final sharedObjectBloc = GetIt.I<SignupBlocBloc>();
+
     var width = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -47,11 +121,36 @@ class _SignUpScreenStep4WidgetState extends State<SignUpScreenStep4Widget> {
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
             child: IconButton(
-                onPressed: () {}, icon: Image.asset(AppIcons.backArrowIcon)),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Image.asset(AppIcons.backArrowIcon)),
           ),
           AppButton(
             onTap: () {
-              Navigator.of(context).pushNamed(AppRoutes.signupDone);
+              // inserting data
+              var businessHours = BusinessHours(
+                mon: listOfWeek[0],
+                tue: listOfWeek[1],
+                wed: listOfWeek[2],
+                thu: listOfWeek[3],
+                fri: listOfWeek[4],
+                sat: listOfWeek[5],
+                sun: listOfWeek[6],
+              );
+              sharedObjectBloc.sharedObject.businessHours = businessHours;
+
+              sharedObjectBloc.sharedObject.deviceToken =
+                  "0imfnc8mVLWwsAawjYr4Rx-Af50DDqtlx";
+              sharedObjectBloc.sharedObject.type =
+                  "email/facebook/google/apple";
+              sharedObjectBloc.sharedObject.socialId =
+                  "0imfnc8mVLWwsAawjYr4Rx-Af50DDqtlx";
+              sharedObjectBloc.sharedObject.role = "farmer";
+
+              sharedObjectBloc.add(SignupEvent());
+
+              //end
             },
             child: const Center(
               child: Text(
@@ -62,250 +161,230 @@ class _SignUpScreenStep4WidgetState extends State<SignUpScreenStep4Widget> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: LayoutBuilder(builder: (context, constraints) {
-          return ConstrainedBox(
-            constraints: BoxConstraints(
-                minHeight: constraints.maxHeight,
-                minWidth: constraints.maxWidth),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    Appstrings.farmerEats,
-                    style: kTS16SpBlack,
-                  ),
-                  AppSizeConstants.heightConstants[40],
-                  Text(
-                    Appstrings.signup4Of4,
-                    style: kTS14SpLightBlack.copyWith(
-                        color: AppColors.black.withOpacity(0.3)),
-                  ),
-                  AppSizeConstants.heightConstants[10],
-                  const Text(
-                    Appstrings.businessHours,
-                    style: kTS32SpBlackFont,
-                  ),
-                  AppSizeConstants.heightConstants[24],
-                  Text(
-                    Appstrings.chooseTheHoursYourFarmIsOpenForPickups,
-                    style: kTS14SpUnderLineBlack.copyWith(
-                        color: AppColors.black.withOpacity(0.3),
-                        decoration: TextDecoration.none),
-                  ),
-                  AppSizeConstants.heightConstants[30],
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: BlocConsumer<SignupBlocBloc, SignupBlocState>(
+        bloc: sharedObjectBloc,
+        listener: (context, state) {
+          if (state is SignupSuccess) {
+            Navigator.of(context).pushNamed(AppRoutes.signupDone);
+          }
+          if (state is SignupFailed) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("Something went wrong!"),
+              ),
+            );
+          }
+        },
+        builder: (context, state) {
+          if (state is SignupLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: LayoutBuilder(builder: (context, constraints) {
+              return ConstrainedBox(
+                constraints: BoxConstraints(
+                    minHeight: constraints.maxHeight,
+                    minWidth: constraints.maxWidth),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const Text(
+                        Appstrings.farmerEats,
+                        style: kTS16SpBlack,
+                      ),
+                      AppSizeConstants.heightConstants[40],
                       Text(
-                        Appstrings.attackProofOfRegistration,
+                        Appstrings.signup4Of4,
+                        style: kTS14SpLightBlack.copyWith(
+                            color: AppColors.black.withOpacity(0.3)),
+                      ),
+                      AppSizeConstants.heightConstants[10],
+                      const Text(
+                        Appstrings.businessHours,
+                        style: kTS32SpBlackFont,
+                      ),
+                      AppSizeConstants.heightConstants[24],
+                      Text(
+                        Appstrings.chooseTheHoursYourFarmIsOpenForPickups,
                         style: kTS14SpUnderLineBlack.copyWith(
-                            color: AppColors.blackFont,
+                            color: AppColors.black.withOpacity(0.3),
                             decoration: TextDecoration.none),
                       ),
-                      AppButton(
-                        onTap: () {},
-                        borderRadius: 26.5,
-                        width: 53,
-                        height: 53,
-                        child: Center(child: Image.asset(AppIcons.camIcon)),
-                      )
-                    ],
-                  ),
-                  AppSizeConstants.heightConstants[40],
-                  // weekdays
-                  Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: SizedBox(
-                      height: 37,
-                      width: width,
-                      child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  var prevSelected = weekDay
-                                      .where((element) => element.isSelected)
-                                      .toList()
-                                      .firstOrNull;
+                      AppSizeConstants.heightConstants[30],
 
-                                  for (var element in weekDay) {
-                                    element.isSelected = false;
-                                  }
-                                  weekDay[index].isSelected =
-                                      !weekDay[index].isSelected;
+                      AppSizeConstants.heightConstants[40],
+                      // weekdays
+                      Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: SizedBox(
+                          height: 37,
+                          width: width,
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      currentSelectedIndex = index;
+                                      var prevSelected = weekDay
+                                          .where(
+                                              (element) => element.isSelected)
+                                          .toList()
+                                          .firstOrNull;
 
-                                  if (prevSelected != null) {
-                                    if (prevSelected.weekday !=
-                                        weekDay[index].weekday) {
-                                      isFirstSelected = false;
-                                      isSecondSelected = false;
-                                      isThirdSelected = false;
-                                      isFourthSelected = false;
-                                      isFifthSelected = false;
-                                    }
-                                  }
+                                      for (int i = 0; i < weekDay.length; i++) {
+                                        weekDay[i].isSelected = false;
+                                        weekDay[i].isDone =
+                                            listOfWeek[i].isNotEmpty;
+                                      }
+                                      weekDay[index].isSelected =
+                                          !weekDay[index].isSelected;
 
-                                  // weekDay[index] = WeekDayData(
-                                  //   weekday: selected.weekday,
-                                  //   isSelected: !selected.isSelected,
-                                  //   isDone: selected.isDone,
-                                  // );
-                                });
+                                      if (prevSelected != null) {
+                                        if (prevSelected.weekday !=
+                                            weekDay[index].weekday) {
+                                          isFirstSelected = false;
+                                          isSecondSelected = false;
+                                          isThirdSelected = false;
+                                          isFourthSelected = false;
+                                          isFifthSelected = false;
+                                        }
+                                      }
+                                    });
+                                  },
+                                  child: WeekBoxWidget(
+                                    weekDay: weekDay[index],
+                                  ),
+                                );
                               },
-                              child: WeekBoxWidget(
-                                weekDay: weekDay[index],
+                              itemCount: 7),
+                        ),
+                      ),
+                      AppSizeConstants.heightConstants[20],
+                      // timings
+                      Row(
+                        children: [
+                          DayWidget(
+                            isSelected: listOfWeek[currentSelectedIndex]
+                                .contains(Appstrings.eightam10am),
+                            onSelectionChanged: (isSelected) {
+                              isFirstSelected = isSelected;
+                              selectedDayTimingItem(
+                                  isFirstSelected, Appstrings.eightam10am);
+                            },
+                            width: width / 2 - 21,
+                            child: Center(
+                              child: Text(
+                                Appstrings.eightam10am,
+                                style: kTS14SpUnderLineBlack.copyWith(
+                                  decoration: TextDecoration.none,
+                                ),
                               ),
-                            );
-                          },
-                          itemCount: 7),
-                    ),
-                  ),
-                  AppSizeConstants.heightConstants[20],
-                  // timings
-                  Row(
-                    children: [
-                      DayWidget(
-                        onSelectionChanged: (isSelected) {
-                          isFirstSelected = isSelected;
-                        },
-                        width: width / 2 - 21,
-                        child: Center(
-                          child: Text(
-                            Appstrings.eightam10am,
-                            style: kTS14SpUnderLineBlack.copyWith(
-                              decoration: TextDecoration.none,
                             ),
                           ),
-                        ),
-                      ),
-                      AppSizeConstants.widthConstants[9],
-                      DayWidget(
-                        onSelectionChanged: (isSelected) {
-                          isSecondSelected = isSelected;
-                        },
-                        width: width / 2 - 21,
-                        child: Center(
-                          child: Text(
-                            Appstrings.temAm1Pm,
-                            style: kTS14SpUnderLineBlack.copyWith(
-                              decoration: TextDecoration.none,
+                          AppSizeConstants.widthConstants[9],
+                          DayWidget(
+                            isSelected: listOfWeek[currentSelectedIndex]
+                                .contains(Appstrings.temAm1Pm),
+                            onSelectionChanged: (isSelected) {
+                              isSecondSelected = isSelected;
+                              selectedDayTimingItem(
+                                  isSecondSelected, Appstrings.temAm1Pm);
+                            },
+                            width: width / 2 - 21,
+                            child: Center(
+                              child: Text(
+                                Appstrings.temAm1Pm,
+                                style: kTS14SpUnderLineBlack.copyWith(
+                                  decoration: TextDecoration.none,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
 
-                  AppSizeConstants.heightConstants[9],
-                  Row(
-                    children: [
+                      AppSizeConstants.heightConstants[9],
+                      Row(
+                        children: [
+                          DayWidget(
+                              isSelected: listOfWeek[currentSelectedIndex]
+                                  .contains(Appstrings.onePm4Pm),
+                              onSelectionChanged: (isSelected) {
+                                isThirdSelected = isSelected;
+                                selectedDayTimingItem(
+                                    isThirdSelected, Appstrings.onePm4Pm);
+                              },
+                              width: width / 2 - 21,
+                              child: Center(
+                                  child: Text(
+                                Appstrings.onePm4Pm,
+                                style: kTS14SpUnderLineBlack.copyWith(
+                                  decoration: TextDecoration.none,
+                                ),
+                              ))),
+                          AppSizeConstants.widthConstants[9],
+                          DayWidget(
+                              isSelected: listOfWeek[currentSelectedIndex]
+                                  .contains(Appstrings.fourPm7pm),
+                              onSelectionChanged: (isSelected) {
+                                isFourthSelected = isSelected;
+                                selectedDayTimingItem(
+                                    isFourthSelected, Appstrings.fourPm7pm);
+                              },
+                              width: width / 2 - 21,
+                              child: Center(
+                                  child: Text(
+                                Appstrings.fourPm7pm,
+                                style: kTS14SpUnderLineBlack.copyWith(
+                                  decoration: TextDecoration.none,
+                                ),
+                              ))),
+                        ],
+                      ),
+                      AppSizeConstants.heightConstants[9],
                       DayWidget(
+                          isSelected: listOfWeek[currentSelectedIndex]
+                              .contains(Appstrings.sevenPm10pm),
                           onSelectionChanged: (isSelected) {
-                            isThirdSelected = isSelected;
+                            isFifthSelected = isSelected;
+                            selectedDayTimingItem(
+                                isFifthSelected, Appstrings.sevenPm10pm);
                           },
                           width: width / 2 - 21,
                           child: Center(
                               child: Text(
-                            Appstrings.onePm4Pm,
+                            Appstrings.sevenPm10pm,
                             style: kTS14SpUnderLineBlack.copyWith(
                               decoration: TextDecoration.none,
                             ),
                           ))),
-                      AppSizeConstants.widthConstants[9],
-                      DayWidget(
-                          onSelectionChanged: (isSelected) {
-                            isFourthSelected = isSelected;
-                          },
-                          width: width / 2 - 21,
-                          child: Center(
-                              child: Text(
-                            Appstrings.fourPm7pm,
-                            style: kTS14SpUnderLineBlack.copyWith(
-                              decoration: TextDecoration.none,
-                            ),
-                          ))),
+
+                      AppSizeConstants.heightConstants[49],
                     ],
                   ),
-                  AppSizeConstants.heightConstants[9],
-                  DayWidget(
-                      onSelectionChanged: (isSelected) {
-                        isFifthSelected = isSelected;
-                      },
-                      width: width / 2 - 21,
-                      child: Center(
-                          child: Text(
-                        Appstrings.fourPm7pm,
-                        style: kTS14SpUnderLineBlack.copyWith(
-                          decoration: TextDecoration.none,
-                        ),
-                      ))),
-
-                  AppSizeConstants.heightConstants[49],
-                ],
-              ),
-            ),
+                ),
+              );
+            }),
           );
-        }),
+        },
       ),
     );
   }
-}
 
-class DayWidget extends StatefulWidget {
-  const DayWidget(
-      {super.key,
-      required this.width,
-      required this.child,
-      this.selectedColor = AppColors.yellorangish,
-      required this.onSelectionChanged});
-
-  final double width;
-  final Widget child;
-  final Color selectedColor;
-
-  final Function(bool isSelected) onSelectionChanged;
-
-  @override
-  State<DayWidget> createState() => _DayWidgetState();
-}
-
-class _DayWidgetState extends State<DayWidget> {
-  bool isSelected = false;
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          isSelected = !isSelected;
-        });
-        widget.onSelectionChanged(isSelected);
-      },
-      child: Container(
-          width: widget.width,
-          height: 48,
-          decoration: BoxDecoration(
-              color: isSelected
-                  ? widget.selectedColor
-                  : AppColors.blackFont.withOpacity(0.08),
-              borderRadius: const BorderRadius.all(Radius.circular(10))),
-          child: widget.child),
-    );
+  void selectedDayTimingItem(bool isNumSelected, String timingItem) {
+    if (isNumSelected &&
+        !listOfWeek[currentSelectedIndex].contains(timingItem)) {
+      listOfWeek[currentSelectedIndex].add(timingItem);
+    }
+    if (!isNumSelected &&
+        listOfWeek[currentSelectedIndex].contains(timingItem)) {
+      listOfWeek[currentSelectedIndex].remove(timingItem);
+    }
   }
-}
-
-class WeekBoxWidget extends StatefulWidget {
-  const WeekBoxWidget(
-      {super.key, required this.weekDay, this.bgColor = AppColors.blackFont});
-  final WeekDayData weekDay;
-  final Color bgColor;
-
-  @override
-  State<WeekBoxWidget> createState() => _WeekBoxWidgetState();
 }
 
 class _WeekBoxWidgetState extends State<WeekBoxWidget> {
@@ -322,10 +401,10 @@ class _WeekBoxWidgetState extends State<WeekBoxWidget> {
             0.08,
           ),
         ),
-        color: widget.weekDay.isDone
-            ? widget.bgColor.withOpacity(0.08)
-            : widget.weekDay.isSelected
-                ? AppColors.buttonColor
+        color: widget.weekDay.isSelected
+            ? AppColors.buttonColor
+            : widget.weekDay.isDone
+                ? widget.bgColor.withOpacity(0.08)
                 : AppColors.white,
         borderRadius: BorderRadius.circular(10),
       ),
@@ -333,10 +412,10 @@ class _WeekBoxWidgetState extends State<WeekBoxWidget> {
         child: Text(
           widget.weekDay.weekday?.name ?? "",
           style: kTS16FW400Black.copyWith(
-            color: widget.weekDay.isDone
-                ? AppColors.black
-                : widget.weekDay.isSelected
-                    ? AppColors.white
+            color: widget.weekDay.isSelected
+                ? AppColors.white
+                : widget.weekDay.isDone
+                    ? AppColors.black
                     : widget.bgColor.withOpacity(0.08),
           ),
         ),
@@ -344,5 +423,3 @@ class _WeekBoxWidgetState extends State<WeekBoxWidget> {
     );
   }
 }
-
-List<Widget> signupDetailsWidgetList = [];
