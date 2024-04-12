@@ -84,6 +84,13 @@ class Appstrings {
   static const String cityShouldNotBeEmpty = "City should not be empty.";
   static const String stateShouldNotBeEmpty = "State should not be empty.";
   static const String zipcodeShouldNotBeEmpty = "ZipCode should not be empty.";
+  static const String tokenKey = "tokenOfThisUser"; //
+  static const String deviceToken = "0imfnc8mVLWwsAawjYr4Rx-Af50DDqtlx";
+  static const String type = "email/facebook/google/apple";
+  static const String socialId = "0imfnc8mVLWwsAawjYr4Rx-Af50DDqtlx";
+  static const String role = "farmer";
+
+  static const String somethingWentWrong = "Something went wrong!";
 
   /// Api Constants
   static const String baseUrl = "https://sowlab.com/assignment/";

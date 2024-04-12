@@ -141,12 +141,10 @@ class _SignUpScreenStep4WidgetState extends State<SignUpScreenStep4Widget> {
               sharedObjectBloc.sharedObject.businessHours = businessHours;
 
               sharedObjectBloc.sharedObject.deviceToken =
-                  "0imfnc8mVLWwsAawjYr4Rx-Af50DDqtlx";
-              sharedObjectBloc.sharedObject.type =
-                  "email/facebook/google/apple";
-              sharedObjectBloc.sharedObject.socialId =
-                  "0imfnc8mVLWwsAawjYr4Rx-Af50DDqtlx";
-              sharedObjectBloc.sharedObject.role = "farmer";
+                  Appstrings.deviceToken;
+              sharedObjectBloc.sharedObject.type = Appstrings.type;
+              sharedObjectBloc.sharedObject.socialId = Appstrings.socialId;
+              sharedObjectBloc.sharedObject.role = Appstrings.role;
 
               sharedObjectBloc.add(SignupEvent());
 
@@ -165,12 +163,13 @@ class _SignUpScreenStep4WidgetState extends State<SignUpScreenStep4Widget> {
         bloc: sharedObjectBloc,
         listener: (context, state) {
           if (state is SignupSuccess) {
+            Navigator.popUntil(context, (route) => route.isFirst);
             Navigator.of(context).pushNamed(AppRoutes.signupDone);
           }
           if (state is SignupFailed) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text("Something went wrong!"),
+                content: Text(Appstrings.somethingWentWrong),
               ),
             );
           }
