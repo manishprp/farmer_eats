@@ -32,8 +32,8 @@ class AppRoutes {
     signUpPage3: (context) => const SignUpScreenStep3Widget(),
     signUpPage4: (context) => const SignUpScreenStep4Widget(),
     signupDone: (context) => const SignupDoneWidget(),
-    signInMain: (context) => SignInMain(),
-    forgotPasswordScreen: (context) => const ForgotPasswordScreen(),
+    signInMain: (context) => const SignInMain(),
+    forgotPasswordScreen: (context) => ForgotPasswordScreen(),
     verifyOtpScreen: (context) => const OtpEnterScreen(),
     resetPasswordScreen: (context) => const ResetPassScreen(),
   };

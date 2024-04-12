@@ -107,10 +107,16 @@ class _SignInMainState extends State<SignInMain> {
                                     prefixIcon: AppIcons.passwordIcon,
                                     suffixIon: Center(
                                       widthFactor: 1.5,
-                                      child: Text(
-                                        Appstrings.forgot,
-                                        style: kTS14SpUnderLineBlack.copyWith(
-                                            color: AppColors.buttonColor),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context).pushNamed(
+                                              AppRoutes.forgotPasswordScreen);
+                                        },
+                                        child: Text(
+                                          Appstrings.forgot,
+                                          style: kTS14SpUnderLineBlack.copyWith(
+                                              color: AppColors.buttonColor),
+                                        ),
                                       ),
                                     ),
                                     label: Appstrings.password),
