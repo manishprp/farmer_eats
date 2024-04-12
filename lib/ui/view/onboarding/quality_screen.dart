@@ -1,6 +1,6 @@
-import 'package:farmer_eats/constants/app_spaces.dart';
-import 'package:farmer_eats/routes/app_routes.dart';
-import 'package:farmer_eats/ui/view/common/app_button_widget.dart';
+import '../../../constants/app_spaces.dart';
+import '../../../routes/app_routes.dart';
+import '../common/app_button_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/app_icons.dart';
@@ -67,7 +67,9 @@ class QualityScreen extends StatelessWidget {
                         ),
                         AppSizeConstants.heightConstants[30],
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(context, AppRoutes.signInMain);
+                          },
                           child: Text(
                             Appstrings.login,
                             style: kTS14SpUnderLineBlack.copyWith(

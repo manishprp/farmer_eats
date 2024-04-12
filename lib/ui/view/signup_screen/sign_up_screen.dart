@@ -176,7 +176,7 @@ class _SignUpScreenWidgetState extends State<SignUpScreenWidget> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          //Navigator.of(context).pushNamed(AppRoutes.signinpage);
+                          Navigator.pushNamed(context, AppRoutes.signInMain);
                         },
                         child: const Text(
                           Appstrings.login,

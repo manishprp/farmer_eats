@@ -25,7 +25,7 @@ class CustomRichTextWidget extends StatelessWidget {
               style: kTS14SpLightBlack.copyWith(
                   color: AppColors.blackFont.withOpacity(0.3))),
           TextSpan(
-            recognizer: TapGestureRecognizer()..onTap = () {},
+            recognizer: TapGestureRecognizer()..onTap = onTap,
             text: " $clickableText",
             style: kTS14SpLightBlack.copyWith(
               color: AppColors.buttonColor,

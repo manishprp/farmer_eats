@@ -1,4 +1,5 @@
 import 'package:farmer_eats/services/api_service.dart';
+import 'package:farmer_eats/viewmodel/signup_bloc/signin/bloc/signin_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -25,6 +26,7 @@ void main() {
 void setupLocator() {
   GetIt.I.registerLazySingleton<Client>(() => Client());
   GetIt.I.registerLazySingleton<SignupBlocBloc>(() => SignupBlocBloc());
+  GetIt.I.registerLazySingleton<SigninBloc>(() => SigninBloc());
   GetIt.I.registerLazySingleton<FlutterSecureStorage>(
       () => const FlutterSecureStorage());
   GetIt.I.registerLazySingleton<Store>(() => Store());

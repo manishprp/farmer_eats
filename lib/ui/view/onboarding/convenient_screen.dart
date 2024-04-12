@@ -68,7 +68,9 @@ class ConvenientScreen extends StatelessWidget {
                         ),
                         AppSizeConstants.heightConstants[30],
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(context, AppRoutes.signInMain);
+                          },
                           child: Text(
                             Appstrings.login,
                             style: kTS14SpUnderLineBlack.copyWith(
